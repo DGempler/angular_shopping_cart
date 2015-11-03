@@ -1,0 +1,55 @@
+<div class='row'>
+  <div class='col-md-3'>
+    <h2>My shopping Bag</h2>
+  </div>
+  <div class='col-md-3 col-md-offset-6'>
+    <h3>Order total: {{ total() | currency }}</h3>
+  </div>
+</div>
+
+<div class='container'>
+  <div class='row'>
+      <table class="table table-bordered">
+        <thead>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat='item in items() | zeroQuantity '>
+            <div class='container'>
+                <div class='col-md-4 col-md-offset-1'>
+              <td>
+                  <h2>{{item.name}}</h2>
+                  <img ng-src='{{item.imageUrl}}' />
+                  <p><b>Caffeine Scale:</b> {{item.caffeineScale}}</p>
+                  <p><b>Ingredients:</b> {{item.ingredients}}</p>
+                  <p><b>Rating:</b> {{item.rating}}</p>
+              </td>
+                </div>
+                <div class='col-md-2'>
+              <td>
+                  <p ng-hide='qtySelect'>{{ item.qty }}</p>
+                  <select ng-show='qtySelect' ng-model='itemQuantity' ng-change='changeQty(item._id, itemQuantity)'>
+                    <option ng-repeat='i in buildArray(item.qty)'>{{ i }}</option>
+                  </select>
+              </td>
+                </div>
+                <div class='col-md-2'>
+              <td>
+                  <p><b>{{ item.subTtl | currency }}</b></p>
+              </td>
+                </div>
+                <div class='col-md-3'>
+              <td>
+                  <button ng-hide='qtySelect' ng-click='qtySelect = !qtySelect' >Edit</button>
+                  <button ng-click='clearItem(item._id)' >Remove</button>
+              </td>
+                </div>
+            </div>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+
+</div>
