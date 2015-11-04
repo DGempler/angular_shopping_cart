@@ -31,3 +31,18 @@ app.filter('zeroQuantity', function() {
     return newTeaArray;
   };
 });
+
+// app.filter('nameFilter', function() {
+//   return function(array, nameQuery) {
+//     if (nameQuery) {
+//       var newArray = [];
+//       array.forEach(function(tea) {
+//         if (tea.name.substring(0, nameQuery.length-1) === nameQuery) {
+//           newArray.push(tea);
+//         }
+//       });
+//     } else {
+//       return array;
+//     }
+//   };
+// });

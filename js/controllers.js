@@ -4,10 +4,10 @@ app.controller('storeController', ['$scope', 'itemFactory', function($scope, ite
   $scope.items = function() {
     return itemFactory.items;
   };
-  $scope.selectOptions =  ["dark", "cold", "awesome", "dry", "hot", "lucid", "warm", "summer", "winter", "spring"];
-  $scope.searchSelect = function(option) {
-    console.log(option);
-  };
+  $scope.selectOptions =  ["" , "dark", "cold", "awesome", "dry", "hot", "lucid", "warm", "summer", "winter", "spring"];
+  // $scope.searchSelect = function(option) {
+  //   $scope.searchQuery = option;
+  // };
   $scope.addToBag = function(id, num, scope) {
     itemFactory.addToBag(id, parseInt(num));
     scope.itemQuantity = 0;

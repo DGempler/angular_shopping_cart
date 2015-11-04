@@ -1,8 +1,8 @@
 <label>Search by category:
-  <select ng-change='searchSelect(selectQuery)' ng-model='selectQuery' ng-options='option for option in selectOptions'>
+  <select ng-model='search.categories' ng-options='option for option in selectOptions'>
   </select></label>
 
-<label>Search by name <input type='search' ng-model='nameQuery' ng-change='searchSelect(nameQuery)'/></label>
+<label>Search by name <input type='search' ng-model='search.name' /></label>
 
 <a href="/#/cart"><button><b>Checkout</b> | Bag: {{ getBagCount() }}</button></a>
 <div class='container'>
@@ -13,7 +13,7 @@
           <th>Information</th>
         </thead>
         <tbody>
-          <tr ng-repeat='item in items()'>
+          <tr ng-repeat='item in items() | filter : search '>
             <div class='container'>
               <td>
                 <img ng-src='{{item.imageUrl}}' />
