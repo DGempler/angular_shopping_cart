@@ -1,5 +1,5 @@
 angular.module('shopping_cart')
-  .factory('itemFactory', ['$http', function($http) {
+  .factory('itemFactory', ['$http', '$q', function($http, $q) {
     var items = {};
     items.items = [];
     items.categories = [];
@@ -22,14 +22,9 @@ angular.module('shopping_cart')
       });
     }
 
-    $http.get('../lib/data.json')
-      .success(function(data) {
-        items.items = data;
-        setSelectOptions(data);
-      })
-      .error(function(error) {
-        console.log(error);
-    });
+    function loadData() {
+
+    }
 
     items.addToBag = function(id, num) {
       var qty = isNaN(num) ? 1 : num;
@@ -66,7 +61,23 @@ angular.module('shopping_cart')
     };
 
     items.getItems = function() {
-      return items.items;
+      var deferred = $q.defer();
+
+      if (items.items.length === 0) {
+        $http.get('../lib/data.json')
+          .success(function(data) {
+            items.items = data;
+            setSelectOptions(data);
+            deferred.resolve(items.items);
+          })
+          .error(function(error) {
+            deferred.fail(error);
+            console.log(error);
+          });
+      } else {
+        deferred.resolve(items.items);
+      }
+      return deferred.promise;
     };
 
     items.getCategories = function() {

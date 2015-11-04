@@ -1,8 +1,12 @@
 angular.module('shopping_cart')
   .controller('cartController', ['$scope', 'itemFactory', function($scope, itemFactory) {
-    $scope.items = function() {
-      return itemFactory.items;
-    };
+    itemFactory.loadData().then(function() {
+      $scope.items = itemFactory.items;
+    });
+    // $scope.items = itemFactory;
+    // $scope.items = function() {
+    //   return itemFactory.items;
+    // };
 
     $scope.total = function() {
       return itemFactory.getTotal();
