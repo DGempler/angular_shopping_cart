@@ -1,13 +1,12 @@
 var app = angular.module('shopping_cart');
 
 app.controller('storeController', ['$scope', 'itemFactory', function($scope, itemFactory) {
+  $scope.selectOptions = itemFactory.getCategories();
+
   $scope.items = function() {
     return itemFactory.items;
   };
-  $scope.selectOptions = itemFactory.getCategories();
-  // $scope.searchSelect = function(option) {
-  //   $scope.searchQuery = option;
-  // };
+
   $scope.addToBag = function(id, num, scope) {
     itemFactory.addToBag(id, parseInt(num));
     scope.itemQuantity = 0;
@@ -16,12 +15,6 @@ app.controller('storeController', ['$scope', 'itemFactory', function($scope, ite
   $scope.getBagCount = function() {
     return itemFactory.getBagCount();
   };
-
-  // $scope.setPriceSort = function(sort) {
-  //   if (sort === "up") {
-
-  //   }
-  // }
 
 }]);
 

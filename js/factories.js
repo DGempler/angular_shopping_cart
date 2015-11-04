@@ -2,34 +2,16 @@ var app = angular.module('shopping_cart');
 
 app.factory('itemFactory', ['$http', function($http) {
   var items = {};
-
   items.items = [];
-  items.categories = [""];
+  items.categories = [];
 
-  var addDecimal = function(num) {
+  function addDecimal(num) {
     var string = num.toString();
     var split = string.split('');
     split.splice(split.length-2, 0, '.');
     var joined = split.join('');
     return joined;
-  };
-
-  $http.get('../lib/data.json')
-    .success(function(data) {
-      items.items = data;
-      setSelectOptions(data);
-    })
-    .error(function(error) {
-      console.log(error);
-  });
-
-  items.getItems = function() {
-    return items.items;
-  };
-
-  items.getCategories = function() {
-    return items.categories;
-  };
+  }
 
   function setSelectOptions(data) {
     data.forEach(function(teaObj) {
@@ -41,6 +23,15 @@ app.factory('itemFactory', ['$http', function($http) {
     });
     console.log(items.categories);
   }
+
+  $http.get('../lib/data.json')
+    .success(function(data) {
+      items.items = data;
+      setSelectOptions(data);
+    })
+    .error(function(error) {
+      console.log(error);
+  });
 
   items.addToBag = function(id, num) {
     var qty = isNaN(num) ? 1 : num;
@@ -68,6 +59,23 @@ app.factory('itemFactory', ['$http', function($http) {
     });
   };
 
+  items.clearItem = function(id) {
+    items.items.forEach(function(tea) {
+      if (tea._id === id) {
+        delete tea.qty;
+        delete tea.subTtl;
+      }
+    });
+  };
+
+  items.getItems = function() {
+    return items.items;
+  };
+
+  items.getCategories = function() {
+    return items.categories;
+  };
+
   items.getBagCount = function() {
     var num = 0;
     items.items.forEach(function(tea) {
@@ -86,15 +94,6 @@ app.factory('itemFactory', ['$http', function($http) {
       }
     });
     return total;
-  };
-
-  items.clearItem = function(id) {
-    items.items.forEach(function(tea) {
-      if (tea._id === id) {
-        delete tea.qty;
-        delete tea.subTtl;
-      }
-    });
   };
 
   return items;
