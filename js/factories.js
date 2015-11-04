@@ -4,6 +4,7 @@ app.factory('itemFactory', ['$http', function($http) {
   var items = {};
 
   items.items = [];
+  items.categories = [""];
 
   var addDecimal = function(num) {
     var string = num.toString();
@@ -16,6 +17,7 @@ app.factory('itemFactory', ['$http', function($http) {
   $http.get('../lib/data.json')
     .success(function(data) {
       items.items = data;
+      setSelectOptions(data);
     })
     .error(function(error) {
       console.log(error);
@@ -24,6 +26,21 @@ app.factory('itemFactory', ['$http', function($http) {
   items.getItems = function() {
     return items.items;
   };
+
+  items.getCategories = function() {
+    return items.categories;
+  };
+
+  function setSelectOptions(data) {
+    data.forEach(function(teaObj) {
+      teaObj.categories.forEach(function(category) {
+        if (items.categories.indexOf(category) === -1) {
+          items.categories.push(category);
+        }
+      });
+    });
+    console.log(items.categories);
+  }
 
   items.addToBag = function(id, num) {
     var qty = isNaN(num) ? 1 : num;

@@ -37,7 +37,7 @@ app.filter('countForEmpty', function() {
     if (num) {
       return num;
     } else {
-      return "Empty"
+      return "Empty";
     }
   };
 });

@@ -4,7 +4,7 @@ app.controller('storeController', ['$scope', 'itemFactory', function($scope, ite
   $scope.items = function() {
     return itemFactory.items;
   };
-  $scope.selectOptions =  ["" , "dark", "cold", "awesome", "dry", "hot", "lucid", "warm", "summer", "winter", "spring"];
+  $scope.selectOptions = itemFactory.getCategories();
   // $scope.searchSelect = function(option) {
   //   $scope.searchQuery = option;
   // };
