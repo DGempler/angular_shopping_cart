@@ -17,6 +17,12 @@ app.controller('storeController', ['$scope', 'itemFactory', function($scope, ite
     return itemFactory.getBagCount();
   };
 
+  // $scope.setPriceSort = function(sort) {
+  //   if (sort === "up") {
+
+  //   }
+  // }
+
 }]);
 
 app.controller('cartController', ['$scope', 'itemFactory', function($scope, itemFactory) {

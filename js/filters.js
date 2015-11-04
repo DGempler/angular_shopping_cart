@@ -32,6 +32,16 @@ app.filter('zeroQuantity', function() {
   };
 });
 
+app.filter('countForEmpty', function() {
+  return function(num) {
+    if (num) {
+      return num;
+    } else {
+      return "Empty"
+    }
+  };
+});
+
 // app.filter('nameFilter', function() {
 //   return function(array, nameQuery) {
 //     if (nameQuery) {

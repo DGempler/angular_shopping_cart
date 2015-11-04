@@ -4,16 +4,29 @@
 
 <label>Search by name <input type='search' ng-model='search.name' /></label>
 
-<a href="/#/cart"><button><b>Checkout</b> | Bag: {{ getBagCount() }}</button></a>
+<a href="/#/cart"><button><b>Checkout</b> | Bag: {{ getBagCount() | countForEmpty }}</button></a>
 <div class='container'>
   <div class='row'>
       <table class="table table-bordered">
         <thead>
           <th>Tea</th>
-          <th>Information</th>
+          <th>
+            <div class='col-md-9'>
+              Information
+            </div>
+            <div class='col-md-3'>
+              <label>Sort By Price:
+                <select ng-model='priceSort'>
+                  <option value =''>None</option>
+                  <option value='price'>Low to high</option>
+                  <option value='-price'>High to low</option>
+                </select>
+              </label>
+            </div>
+          </th>
         </thead>
         <tbody>
-          <tr ng-repeat='item in items() | filter : search '>
+          <tr ng-repeat='item in items() | filter : search | orderBy : priceSort'>
             <div class='container'>
               <td>
                 <img ng-src='{{item.imageUrl}}' />
